@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          cursor: pointer;
+          justify-content: center;
+        }
+  
+        .box {
+          border: 1px solid orangered;
+          width: 0px;
+          height: 0px;
+          margin: 90px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: white;
+        }
+      </style>
+    </head>
+    <body>
+      <h2 style="color: #F9B23D;">ROCK PAPER SCISSOR</h2>
+      <div style="display: flex" class="selection">
+          <div class="wrapper" id="pOption">
+            <h2>PLAYER</h2>
+            <div class="box" id="rock"><img src="/assets 2/batu.png" alt="" width="128px"></div>
+            <div class="box" id="paper"><img src="/assets 2/kertas.png" alt="" width="96px"></div>
+            <div class="box" id="scissor"><img src="/assets 2/gunting.png" alt="" width="108px"></div>
+          </div>
+
+          <hr style="opacity: 0;">
+
+          <div class="midle" id="hasilTengah">
+            <h2 style="color: red;">VS</h2>
+          </div>
+
+          <hr style="opacity: 0;">
+
+          <div class="wrapper" id="cOption">
+            <h2>COMPUTER</h2>
+            <div class="box" id="comRock"><img src="/assets 2/batu.png" alt="" width="100px" background-color="none" ></div>
+            <div class="box" id="comPaper"><img src="/assets 2/kertas.png" alt="" width="96px"></div>
+            <div class="box" id="comScissor"><img src="/assets 2/gunting.png" alt="" width="108px"></div>
+          </div>
+      </div>
+      <div class="reset-btn" id="dariAwal"><img src="/assets 2/refresh.png" alt="" width="98px"></div>
+
+
+      <script>
+        const rockBox = document.getElementById("rock");
+        const paperBox = document.getElementById("paper");
+        const scissorBox = document.getElementById("scissor");
+  
+        let pilihanUser = "";
+        let pilihanComputer = "";
+  
+        const kasihBackgroundMerah = (pilihan) => {
+          const selectedBox = document.getElementById(pilihan);
+          selectedBox.style.backgroundColor = "red";
+        }
+  
+        const computerMemilih = () => {
+          const pilihanYangTersedia = ["comRock", "comPaper", "comScissor"];
+          const rndInt = Math.floor(Math.random() * 3);
+          const pilihanKomputer = pilihanYangTersedia[rndInt];
+          pilihanComputer = pilihanYangTersedia[rndInt];
+          kasihBackgroundMerah(pilihanKomputer);
+          hasilPertandingan();
+        };
+  
+        rockBox.onclick = () => {
+          rockBox.style.backgroundColor = "grey";
+          pilihanUser = "rock";
+          computerMemilih();
+          disableClick();
+          totalScore['playerScore'] += score
+          console.log({score})
+          console.log(totalScore)
+          siapaMenang(hasilPertandingan)
+        };
+  
+        paperBox.onclick = () => {
+          paperBox.style.backgroundColor = "grey";
+          pilihanUser = "paper";
+          computerMemilih();
+          disableClick();
+          totalScore['playerScore'] += score
+          console.log({score})
+          console.log(totalScore)
+          siapaMenang(hasilPertandingan)
+        };
+  
+        scissorBox.onclick = () => {
+          scissorBox.style.backgroundColor = "grey";
+          pilihanUser = "scissor";
+          computerMemilih();
+          disableClick();
+          totalScore['playerScore'] += score
+          console.log({score})
+          console.log(totalScore)
+          siapaMenang(hasilPertandingan)
+        };
+  
+        const disableClick = () => {
+          rockBox.style.pointerEvents = "none";
+          paperBox.style.pointerEvents = "none";
+          scissorBox.style.pointerEvents = "none";
+        };
+
+        
+        const totalScore = {computerScore: 0, playerScore: 0} 
+  
+        const hasilPertandingan = () => {
+          if (pilihanUser === "rock" && pilihanComputer === "comRock") {
+            score = 1
+            console.log("DRAW");
+          } else if (pilihanUser === "paper" && pilihanComputer === "comPaper") {
+            score = 1
+            console.log("DRAW");
+          } else if (pilihanUser === "scissor" && pilihanComputer === "comScissor") {
+            score = 1
+            console.log("DRAW");
+          } else if (pilihanUser === "paper" && pilihanComputer === "comRock"){
+            score = -2
+            console.log("Com Win")
+          } else if (pilihanUser === "paper" && pilihanComputer === "comScissor"){
+            score = -2
+            console.log("Com Win")
+          } else if (pilihanUser === "rock" && pilihanComputer === "comPaper"){
+            score = -2
+            console.log("Com Win")
+          } else if (pilihanUser === "rock" && pilihanComputer === "comScissor"){
+            score = 2
+            console.log("User Win")
+          } else if (pilihanUser === "scissor" && pilihanComputer === "comRock"){
+            score = -2
+            console.log("Com Win")
+          } else {
+            score = 2
+            console.log("User Win")
+          }
+        };
+
+
+        function siapaMenang(hasilPertandingan) {
+          const resultdiv = document.getElementById('hasilTengah')
+          if (score == -2) {
+            resultdiv.innerText = 'You Lose'
+          } else if (score == 1) {
+            resultdiv.innerText = 'Draw'
+          } else if (score == 2) {
+            resultdiv.innerText = 'You Win'
+          } else { 
+            resultdiv.innerText = ''
+          }
+        }
+
+        const endGameButton =
+        document.getElementById('dariAwal')
+        endGameButton.onclick = () => endGame()
+        
+      
+        function endGame(totalScore) {
+        hasilPertandingan = 0
+        const rockBox = document.getElementById("rock");
+        const paperBox = document.getElementById("paper");
+        const scissorBox = document.getElementById("scissor");
+        
+        resultdiv.innerText = ''
+
+        }
+
+        
+        
+      </script>
+    </body>
+  </html>
+  
+  
