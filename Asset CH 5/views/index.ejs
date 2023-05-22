@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>List Articles</h1>
+    <div>
+      <% for(var i=0; i < articles.length; i++) { %>
+        <h3><%= articles[i].title %></h3>
+        <p><%= articles[i].content %></p>
+      <% } %>
+    </div>
+  </body>
+</html>
